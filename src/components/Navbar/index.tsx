@@ -3,13 +3,15 @@ import NormalButton from "../NormalButton";
 import { Navbar, NavbarBrand, NavLink } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { attemptGetUser } from "../../store/thunks/user";
+import { Dropdown } from "react-bootstrap";
+import "./style.css"
 
 const NavBar = (props: any) => {
 
-  const { isAuth } = useSelector((state:any) => state.user);
-  const { user } = useSelector((state:any) => state);
+  const { isAuth } = useSelector((state: any) => state.user);
+  const { user } = useSelector((state: any) => state);
   const [name, setName] = useState("");
-  const dispatch:any = useDispatch();
+  const dispatch: any = useDispatch();
   const token = localStorage.getItem('token');
   useEffect(() => {
     if (isAuth && user.user == undefined) {
@@ -87,7 +89,18 @@ const NavBar = (props: any) => {
               value={"Register"}
               imageDisplay="none"
               url="register"
-            /></>) : (<div></div>)}
+            /></>) : (<Dropdown className="drop_logout">
+              <Dropdown.Toggle id="dropdown-button-dark-example1" variant="secondary">
+                {name}
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu variant="dark">
+                <Dropdown.Item href="/" onClick={() => { localStorage.clear(); }}>
+                  Log Out
+                </Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>)}
 
 
           <button className="navbar-toggler" onClick={props.sideNav} type="button">

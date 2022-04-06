@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as Yup from "yup";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, FastField, ErrorMessage } from "formik";
+
 import Error from "../../components/Error/Error";
 import {
   attemptRegister,
@@ -10,25 +11,40 @@ import {
 } from "../../store/thunks/auth";
 import "./style.css";
 const Register = () => {
-  const { isAuth } = useSelector((state:any) => state.user);
   const [serverError, setServerError] = useState("");
   const [user, setUser] = useState({});
   const [registerStep, setRegisterStep] = useState("register"); // Use an enum with TS;
-
+  interface IFormValues {
+    name: string;
+    email: string;
+    password: string;
+    passwordConfirm: string;
+  }
   const dispatch:any = useDispatch();
 
   const initialValues = {
     email: "",
     name: "",
     password: "",
+    passwordConfirm:"",
   };
   const [loding, setLoading] = useState(false);
+ 
   const validationSchema = Yup.object({
-    email: Yup.string().min(5).max(255).email().required("Required"),
-    name: Yup.string().min(3).max(50).required("Required"),
-    password: Yup.string().min(5).max(255).required("Required"),
+    email: Yup.string()
+      .email("Please enter valid email")
+      .required("Please enter your email"),
+    name: Yup.string()
+      .required("Please enter username")
+      .min(5, "Your username is too short")
+      .max(30, "Your username is too long"),
+    password: Yup.string()
+      .required("Please enter password")
+      .min(5, "Your password is too short")
+      .max(30, "Your password is too long"),
     passwordConfirm: Yup.string()
-      .oneOf([Yup.ref('password'), null], 'Passwords must match').required("Required")
+      .oneOf([Yup.ref("password"), null], "Password does not match")
+      .required("Please retype password")
   });
   const onSubmit = (values:{}) => {
     setLoading(true);
@@ -70,7 +86,7 @@ const Register = () => {
     switch (registerStep) {
       case "register":
         return (
-          <Formik
+          <Formik<IFormValues>
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
@@ -95,7 +111,7 @@ const Register = () => {
                                 </label>
 
                                 <div className="col-md-6">
-                                  <Field
+                                  <FastField
                                     id="name"
                                     name="name"
                                     type="text"
@@ -103,7 +119,7 @@ const Register = () => {
                                   />
                                   <ErrorMessage
                                     name="name"
-                                    component={Error}
+                                    component="div"
                                   />
                                 </div>
                               </div>
@@ -116,7 +132,7 @@ const Register = () => {
                                 </label>
 
                                 <div className="col-md-6">
-                                  <Field
+                                  <FastField
                                     id="email"
                                     name="email"
                                     type="email"
@@ -124,7 +140,7 @@ const Register = () => {
                                   />
                                   <ErrorMessage
                                     name="email"
-                                    component={Error}
+                                    component="div"
                                   />
                                 </div>
                               </div>
@@ -136,7 +152,7 @@ const Register = () => {
                                   Password
                                 </label>
                                 <div className="col-md-6">
-                                  <Field
+                                  <FastField
                                     id="password"
                                     name="password"
                                     type="password"
@@ -144,7 +160,7 @@ const Register = () => {
                                   />
                                   <ErrorMessage
                                     name="password"
-                                    component={Error}
+                                    component="div"
                                   />
                                 </div>
                               </div>
@@ -157,7 +173,7 @@ const Register = () => {
                                 </label>
 
                                 <div className="col-md-6">
-                                  <Field
+                                  <FastField
                                     id="passwordConfirm"
                                     name="passwordConfirm"
                                     type="password"
@@ -165,7 +181,7 @@ const Register = () => {
                                   />
                                   <ErrorMessage
                                     name="passwordConfirm"
-                                    component={Error}
+                                    component="div"
                                   />
                                 </div>
                               </div>
@@ -236,3 +252,5 @@ const Register = () => {
   return <>{renderSwitch()}</>;
 };
 export default Register;
+
+

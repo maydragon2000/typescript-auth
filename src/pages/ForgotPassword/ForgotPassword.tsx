@@ -55,7 +55,7 @@ const ForgotPassword = () => {
                                                             type="email"
                                                             placeholder="email"
                                                         />
-                                                        <ErrorMessage name="email" component={Error} />
+                                                        <ErrorMessage name="email" component="div" />
                                                     </div>
                                                 </div>
                                                 <div className="row mb-0 forgot">

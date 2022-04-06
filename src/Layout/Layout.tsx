@@ -15,7 +15,6 @@ const Layout = () => {
     useEffect(() => {
         if (location.search !== "")
             axios.get(`http://localhost:8000/api/callback${location.search}`).then(({ data }) => {
-                console.log(data, "data google");
                 localStorage.setItem('token', data.google_user.token);
                 dispatch(login(data.google_user));
             })

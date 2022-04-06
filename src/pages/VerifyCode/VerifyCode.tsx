@@ -57,7 +57,7 @@ const VerifyCode = () => {
                                                             type="string"
                                                             placeholder="code"
                                                         />
-                                                        <ErrorMessage name="code" component={Error} />
+                                                        <ErrorMessage name="code" component="div" />
                                                     </div>
                                                 </div>
                                                 <div className="row mb-0 forgot">

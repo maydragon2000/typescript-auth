@@ -80,7 +80,7 @@ const ResetPassword = () => {
                                                         />
                                                         <ErrorMessage
                                                             name="passwordConfirm"
-                                                            component={Error}
+                                                            component="div"
                                                         />
                                                     </div>
                                                 </div>

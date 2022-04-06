@@ -11,7 +11,6 @@ interface ResponseType {
 export const attemptGetUser = (token: string) => (dispatch: any) =>
   getUser(token)
     .then((reponse:ResponseType) => {
-      console.log(reponse.data.user, "get user data");
       if (reponse.data.user) {
         dispatch(setUser(reponse.data.user));
       } else {

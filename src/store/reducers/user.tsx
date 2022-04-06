@@ -3,7 +3,7 @@ import { LOGIN_USER, LOGOUT_USER, SET_USER, RESET_USER, RESET_PASSWORD_VERIFY, S
 interface ActionType {
   type: string,
   user: object,
-  email:string
+  email: string
 }
 
 const initialState: {
@@ -30,7 +30,7 @@ function getIsAuth() {
   }
 }
 
-export default function user(state = initialState, action:ActionType) {
+export default function user(state = initialState, action: ActionType) {
   switch (action.type) {
     case LOGIN_USER:
       return {

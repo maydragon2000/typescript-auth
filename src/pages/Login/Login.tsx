@@ -6,10 +6,13 @@ import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import Error from "../../components/Error/Error";
 import "./style.css";
-import NormalButton from "../../components/NormalButton";
 
 const Login = () => {
-  const dispatch:any = useDispatch();
+  interface IFormValues {
+    email: string;
+    password: string;
+  };
+  const dispatch: any = useDispatch();
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState("");
   const [googleLoginUrl, setGoogleLoginUrl] = useState(undefined);
@@ -19,21 +22,24 @@ const Login = () => {
     password: "",
   };
   useEffect(() => {
-    dispatch(attemptGoogleLogin()).then((res:any) => {
-      console.log(res, "response");
+    dispatch(attemptGoogleLogin()).then((res: any) => {
       setGoogleLoginUrl(res.url);
     }).catch(() => {
       setLoading(false);
     });
   }, []);
-  const validationSchema = Yup.object({
-    email: Yup.string().email("Invalid email address").required("Required"),
-    password: Yup.string().min(5).max(255).required("Required"),
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email("Please enter valid email")
+      .required("Please enter your email"),
+    password: Yup.string()
+      .required("Please enter password")
+      .min(5, "Your password is too short")
+      .max(30, "Your password is too long"),
   });
-
-  const onSubmit = (values:any) => {
+  const onSubmit = (values:IFormValues) => {
     setLoading(true);
-    dispatch(attemptLogin(values)).then((response:any) => {
+    dispatch(attemptLogin(values)).then((response: any) => {
       if (response == true)
         navigate('/');
       else {
@@ -48,7 +54,7 @@ const Login = () => {
     });
   };
   return (
-    <Formik
+    <Formik<IFormValues>
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
@@ -76,7 +82,7 @@ const Login = () => {
                               type="email"
                               placeholder="email"
                             />
-                            <ErrorMessage name="email" component={Error} />
+                            <ErrorMessage name="email" component="div" />
                           </div>
                         </div>
                         <div className="row mb-3 password">
@@ -92,7 +98,7 @@ const Login = () => {
                               type="password"
                               placeholder="Password"
                             />
-                            <ErrorMessage name="password" component={Error} />
+                            <ErrorMessage name="password" component="div" />
                           </div>
                         </div>
                         <div className="row mb-3 remember">

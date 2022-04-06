@@ -1,0 +1,33 @@
+.drop_logout {
+    display: block !important;
+    position: absolute;
+    right: 160px !important;
+    background-color: transparent !important;
+}
+
+.drop_logout .btn-secondary {
+    background-color: transparent;
+    border-color: transparent
+}
+
+.drop_logout .btn-secondary:hover {
+    background-color: transparent;
+    border-color: transparent
+}
+
+.drop_logout .btn-secondary:active {
+    background-color: transparent;
+    border-color: transparent
+}
+
+.drop_logout .btn-secondary:focus {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none !important;
+}
+
+.drop_logout .btn-secondary:active,
+.show>.btn-secondary.dropdown-toggle {
+    background-color: transparent !important;
+    border-color: transparent !important;
+}

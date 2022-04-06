@@ -13,10 +13,10 @@ export default function configureStore(history: any, initialState = {}) {
   //   const logger = createLogger({ collapsed: true, diff: true });
   //   middlewares.push(logger);
   // }
-
+  const middlewares = [thunk]
   return createStore(
     buildRootReducer(history),
     initialState,
-    // composeEnhancers(applyMiddleware(...middlewares))
+    compose(applyMiddleware(...middlewares))
   );
 }
