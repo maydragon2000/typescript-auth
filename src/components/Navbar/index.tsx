@@ -10,9 +10,9 @@ const NavBar = (props: any) => {
 
   const { isAuth } = useSelector((state: any) => state.user);
   const { user } = useSelector((state: any) => state);
-  const [name, setName] = useState("");
+  const [name, setName] = useState<string>("");
   const dispatch: any = useDispatch();
-  const token = localStorage.getItem('token');
+  const token:string|null = localStorage.getItem('token');
   useEffect(() => {
     if (isAuth && user.user == undefined) {
       dispatch(attemptGetUser(token as string))
@@ -26,8 +26,8 @@ const NavBar = (props: any) => {
       setName(user.user.name);
     }
   }, [user]);
-  const [dropDownDisplay, setDropDownDisplay] = useState("none");
-  const [brandImgDisplay, setBrandImgDisplay] = useState("block");
+  const [dropDownDisplay, setDropDownDisplay] = useState<string>("none");
+  const [brandImgDisplay, setBrandImgDisplay] = useState<string>("block");
   window.onscroll = function () {
     scrollFunction();
   };

@@ -11,9 +11,9 @@ import {
 } from "../../store/thunks/auth";
 import "./style.css";
 const Register = () => {
-  const [serverError, setServerError] = useState("");
-  const [user, setUser] = useState({});
-  const [registerStep, setRegisterStep] = useState("register"); // Use an enum with TS;
+  const [serverError, setServerError] = useState<string>("");
+  const [user, setUser] = useState<any>({});
+  const [registerStep, setRegisterStep] = useState<string>("register"); // Use an enum with TS;
   interface IFormValues {
     name: string;
     email: string;
@@ -22,13 +22,13 @@ const Register = () => {
   }
   const dispatch:any = useDispatch();
 
-  const initialValues = {
+  const initialValues: IFormValues = {
     email: "",
     name: "",
     password: "",
     passwordConfirm:"",
   };
-  const [loding, setLoading] = useState(false);
+  const [loding, setLoading] = useState<boolean>(false);
  
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -46,7 +46,7 @@ const Register = () => {
       .oneOf([Yup.ref("password"), null], "Password does not match")
       .required("Please retype password")
   });
-  const onSubmit = (values:{}) => {
+  const onSubmit = (values:any):void => {
     setLoading(true);
     dispatch(attemptRegister(values))
       .then(() => {
@@ -62,7 +62,7 @@ const Register = () => {
       });
   };
 
-  const onResendEmail = () => {
+  const onResendEmail = ():void => {
 
     dispatch(attemptResendConfirmation(user))
       .then(() => {
@@ -75,7 +75,7 @@ const Register = () => {
       });
   };
 
-  const onReset = () => {
+  const onReset = ():void => {
     dispatch(attemptResetRegister()).catch((error:any) => {
       if (error.response) {
         setServerError(error.response.data.message);

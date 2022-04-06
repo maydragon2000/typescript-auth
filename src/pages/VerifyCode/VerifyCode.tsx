@@ -2,18 +2,19 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import Error from "../../components/Error/Error";
 import { decode as base64decode } from 'base-64';
 import { useNavigate } from "react-router-dom";
 import { resetPasswordVerify } from "../../store/actions/user";
 const VerifyCode = () => {
     const { email } = useSelector((state:any) => state.user);
-    const initialValues = {
+    const initialValues: {
+        code:string
+    } = {
         code: "",
     };
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const verifyCode = base64decode(localStorage.getItem("verifycode") as string);
+    const dispatch:any = useDispatch();
+    const verifyCode:string = base64decode(localStorage.getItem("verifycode") as string);
     const validationSchema = Yup.object({
         code: Yup.string().required("Required"),
     });
@@ -25,7 +26,7 @@ const VerifyCode = () => {
         }
     };
     return (
-        <Formik
+        <Formik<{code:string}>
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={onSubmit}

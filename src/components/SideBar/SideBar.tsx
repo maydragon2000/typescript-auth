@@ -8,7 +8,7 @@ import Community from "./Community";
 import Legal from "./Legal";
 import "./style.css";
 const SideBar = (props:any) => {
-  var sideheight = window.innerHeight - 100;
+  var sideheight:number = window.innerHeight - 100;
   return (
     <>
       <div

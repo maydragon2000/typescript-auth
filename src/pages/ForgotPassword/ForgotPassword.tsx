@@ -3,11 +3,12 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-import Error from "../../components/Error/Error";
 import { attemptEmailVerify } from "../../store/thunks/auth"
 const ForgotPassword = () => {
-    const [loading, setLoading] = useState(false);
-    const initialValues = {
+    const [loading, setLoading] = useState<boolean>(false);
+    const initialValues: {
+        email:string
+    } = {
         email: "",
     };
     const dispatch:any = useDispatch();
@@ -27,7 +28,7 @@ const ForgotPassword = () => {
         });
     };
     return (
-        <Formik
+        <Formik<{email:string}>
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={onSubmit}

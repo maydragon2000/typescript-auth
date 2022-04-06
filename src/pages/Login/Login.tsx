@@ -13,11 +13,11 @@ const Login = () => {
     password: string;
   };
   const dispatch: any = useDispatch();
-  const [loading, setLoading] = useState(false);
-  const [serverError, setServerError] = useState("");
-  const [googleLoginUrl, setGoogleLoginUrl] = useState(undefined);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [serverError, setServerError] = useState<string>("");
+  const [googleLoginUrl, setGoogleLoginUrl] = useState<undefined|string>(undefined);
   const navigate = useNavigate();
-  const initialValues = {
+  const initialValues:IFormValues = {
     email: "",
     password: "",
   };
@@ -48,9 +48,6 @@ const Login = () => {
       }
     }).catch(() => {
       setLoading(false);
-      // if (response.data.message) {
-      //   setServerError(response.data.message);
-      // }
     });
   };
   return (

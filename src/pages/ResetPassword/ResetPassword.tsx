@@ -10,10 +10,12 @@ const ResetPassword = () => {
     const { email } = useSelector((state:any) => state.user);
     const navigate = useNavigate()
     const dispatch:any = useDispatch();
-    const initialValues = {
+    const initialValues: {
+        password:string
+    } = {
         password: "",
     };
-    const [loding, setLoading] = useState(false);
+    const [loding, setLoading] = useState<boolean>(false);
     const validationSchema = Yup.object({
         password: Yup.string().min(5).max(255).required("Required"),
         passwordConfirm: Yup.string()
@@ -28,7 +30,7 @@ const ResetPassword = () => {
         })
     };
     return (
-        isVerify ? (<Formik
+        isVerify ? (<Formik<{password:string}>
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={onSubmit}

@@ -11,7 +11,7 @@ import { login } from "../store/actions/user"
 
 const Layout = () => {
     const location = useLocation();
-    const dispatch = useDispatch();
+    const dispatch:any = useDispatch();
     useEffect(() => {
         if (location.search !== "")
             axios.get(`http://localhost:8000/api/callback${location.search}`).then(({ data }) => {
@@ -19,11 +19,11 @@ const Layout = () => {
                 dispatch(login(data.google_user));
             })
     }, [])
-    const [sidePanelRightValue, setRight] = useState("-1000px");
-    const [navBackColor, setNavBackColor] = useState("transparent");
-    const [burgerDispaly, setBurger] = useState("initial");
-    const [crossDisplay, setCross] = useState("none");
-    function sideNav() {
+    const [sidePanelRightValue, setRight] = useState<string>("-1000px");
+    const [navBackColor, setNavBackColor] = useState<string>("transparent");
+    const [burgerDispaly, setBurger] = useState<string>("initial");
+    const [crossDisplay, setCross] = useState<string>("none");
+    function sideNav():void {
         if (sidePanelRightValue == "0px") {
             setRight("-1000px");
             setNavBackColor("transparent");
